@@ -53,22 +53,11 @@ public class KGRadioButton: UIButton {
         customInitialization()
     }
     
-    /*
-     internal var setCircleRadius: CGFloat {
-     let width = bounds.width
-     let height = bounds.height
-     
-     let length = width > height ? height : width
-     return (length - outerCircleLineWidth) / 2
-     }
-     */
-    
     private var setCircleFrame: CGRect {
-        let width = bounds.width
         let height = bounds.height
         
         let x: CGFloat = 0
-        let y: CGFloat = 0
+        let y: CGFloat = (height / 2) - radius
         
         return CGRect(x: x, y: y, width: diameter, height: diameter)
     }
