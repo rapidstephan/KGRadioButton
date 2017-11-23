@@ -11,10 +11,9 @@ import UIKit
 
 @IBDesignable
 public class KGRadioButton: UIButton {
-
+    
     internal var outerCircleLayer = CAShapeLayer()
     internal var innerCircleLayer = CAShapeLayer()
-    
     
     @IBInspectable public var outerCircleColor: UIColor = UIColor.green {
         didSet {
@@ -37,52 +36,50 @@ public class KGRadioButton: UIButton {
             setCircleLayouts()
         }
     }
+    @IBInspectable public var diameter: CGFloat = 24
+    
+    var radius: CGFloat {
+        return (diameter-outerCircleLineWidth)/2
+    }
     
     override public init(frame: CGRect) {
         super.init(frame: frame)
         customInitialization()
     }
+    
     // MARK: Initialization
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         customInitialization()
     }
     
-    internal var setCircleRadius: CGFloat {
-        let width = bounds.width
-        let height = bounds.height
-        
-        let length = width > height ? height : width
-        return (length - outerCircleLineWidth) / 2
-    }
+    /*
+     internal var setCircleRadius: CGFloat {
+     let width = bounds.width
+     let height = bounds.height
+     
+     let length = width > height ? height : width
+     return (length - outerCircleLineWidth) / 2
+     }
+     */
     
     private var setCircleFrame: CGRect {
         let width = bounds.width
         let height = bounds.height
         
-        let radius = setCircleRadius
-        let x: CGFloat
-        let y: CGFloat
+        let x: CGFloat = 0
+        let y: CGFloat = 0
         
-        if width > height {
-            y = outerCircleLineWidth / 2
-            x = (width / 2) - radius
-        } else {
-            x = outerCircleLineWidth / 2
-            y = (height / 2) - radius
-        }
-        
-        let diameter = 2 * radius
         return CGRect(x: x, y: y, width: diameter, height: diameter)
     }
     
     private var circlePath: UIBezierPath {
-        return UIBezierPath(roundedRect: setCircleFrame, cornerRadius: setCircleRadius)
+        return UIBezierPath(roundedRect: setCircleFrame, cornerRadius: radius)
     }
     
     private var fillCirclePath: UIBezierPath {
         let trueGap = innerCircleGap + (outerCircleLineWidth / 2)
-        return UIBezierPath(roundedRect: setCircleFrame.insetBy(dx: trueGap, dy: trueGap), cornerRadius: setCircleRadius)
+        return UIBezierPath(roundedRect: setCircleFrame.insetBy(dx: trueGap, dy: trueGap), cornerRadius: radius)
         
     }
     
@@ -98,6 +95,9 @@ public class KGRadioButton: UIButton {
         innerCircleLayer.fillColor = UIColor.clear.cgColor
         innerCircleLayer.strokeColor = UIColor.clear.cgColor
         layer.addSublayer(innerCircleLayer)
+        
+        //button.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0)
+        titleEdgeInsets = UIEdgeInsetsMake(0, diameter + 5, 0, 0)
         
         setFillState()
     }
@@ -115,7 +115,7 @@ public class KGRadioButton: UIButton {
     // MARK: Custom
     private func setFillState() {
         if self.isSelected {
-            innerCircleLayer.fillColor = outerCircleColor.cgColor
+            innerCircleLayer.fillColor = innerCircleCircleColor.cgColor
         } else {
             innerCircleLayer.fillColor = UIColor.clear.cgColor
         }
@@ -134,8 +134,4 @@ public class KGRadioButton: UIButton {
             setFillState()
         }
     }
-
-    
-    
-   
 }
