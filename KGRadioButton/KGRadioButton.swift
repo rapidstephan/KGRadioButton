@@ -85,8 +85,7 @@ public class KGRadioButton: UIButton {
         innerCircleLayer.strokeColor = UIColor.clear.cgColor
         layer.addSublayer(innerCircleLayer)
         
-        //button.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0)
-        titleEdgeInsets = UIEdgeInsetsMake(0, diameter + 5, 0, 0)
+        titleEdgeInsets = UIEdgeInsets(top: 0, left: diameter + 5, bottom: 0, right: 0)
         
         setFillState()
     }
