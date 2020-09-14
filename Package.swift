@@ -17,7 +17,7 @@ let package = Package(
         .target(
             name: "KGRadioButton",
             dependencies: [],
-            path: "Source"),
+            path: "KGRadioButton"),
         .testTarget(
             name: "KGRadioButtonTests",
             dependencies: ["KGRadioButton"]),
